@@ -1,0 +1,53 @@
+package com.example.cabbooking.service;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import com.example.cabbooking.model.Cab;
+import com.example.cabbooking.model.Location;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+public class CabManagerTest {
+    private Cab cab;
+    private Location location;
+
+    @BeforeEach
+    public void setUp() {
+        // Initialize Cab with basic details
+        cab = new Cab("CAB001", "John Doe");
+        location = new Location(12.9716, 77.5946); // Sample coordinates (latitude, longitude)
+    }
+
+    @Test
+    public void testCabConstructor() {
+        // Verify cab details from the constructor
+        assertEquals("CAB001", cab.getId());
+        assertEquals("John Doe", cab.getDriverName());
+        assertTrue(cab.getIsAvailable(), "Cab should be available by default.");
+    }
+
+    @Test
+    public void testSetLocation() {
+        // Set and verify cab location
+        cab.setCurrentLocation(location);
+        assertEquals(location, cab.getCurrentLocation(), "Cab location should be set correctly.");
+    }
+
+    @Test
+    public void testSetAvailability() {
+        // Set and verify cab availability
+        cab.setIsAvailable(false);
+        assertFalse(cab.getIsAvailable(), "Cab should be unavailable after setting to false.");
+
+        cab.setIsAvailable(true);
+        assertTrue(cab.getIsAvailable(), "Cab should be available after setting to true.");
+    }
+
+    @Test
+    public void testCabToString() {
+        // Check the string representation of the Cab object
+        cab.setCurrentLocation(location);
+        String expected = "Cab{id='CAB001', driverName='John Doe', currentLocation=Location{latitude=12.9716, longitude=77.5946}, isAvailable=true}";
+        assertEquals(expected, cab.toString(), "The toString method should return the expected string.");
+    }
+}
